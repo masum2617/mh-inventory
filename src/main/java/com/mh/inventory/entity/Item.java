@@ -2,9 +2,11 @@ package com.mh.inventory.entity;
 
 import com.mh.inventory.common.BaseEntity;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,19 +37,13 @@ public class Item extends BaseEntity {
     private Category category;
 
     @Column(name = "qty")
-    private Integer quantity = 0;
+    private Integer qty = 0;
 
     @Column(name = "re_order_lvl")
     private Integer reOrderLevel;
 
     @OneToMany(mappedBy = "item", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Stock> stockList = new ArrayList<>();
-
-    @Column(name = "active_status")
-    private Integer activeStatus;
-
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
 
 
 }
