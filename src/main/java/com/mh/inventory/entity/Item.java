@@ -1,6 +1,7 @@
 package com.mh.inventory.entity;
 
 import com.mh.inventory.common.BaseEntity;
+import com.mh.inventory.dtos.ItemDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,6 +17,21 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@SqlResultSetMapping(
+        name = "ItemDtoMapping",
+        classes = @ConstructorResult(
+                targetClass = ItemDto.class,
+                columns = {
+                        @ColumnResult(name = "id", type = Long.class),
+                        @ColumnResult(name = "item_code", type = String.class),
+                        @ColumnResult(name = "item_name", type = String.class),
+                        @ColumnResult(name = "category_id", type = Long.class),
+                        @ColumnResult(name = "qty", type = Integer.class),
+                        @ColumnResult(name = "re_order_lvl", type = Integer.class),
+                        @ColumnResult(name = "category_name", type = String.class)
+                }
+        )
+)
 public class Item extends BaseEntity {
 
     @Id

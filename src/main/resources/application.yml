@@ -25,6 +25,7 @@ spring:
     properties:
       hibernate:
         default_schema: mh_inventory
+        format_sql: true
 
 springdoc:
   api-docs:
