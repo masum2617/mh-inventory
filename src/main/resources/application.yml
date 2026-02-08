@@ -27,10 +27,15 @@ spring:
         default_schema: mh_inventory
         format_sql: true
 
+
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+
 springdoc:
   api-docs:
     querydsl:
       enabled: false
-
-
-

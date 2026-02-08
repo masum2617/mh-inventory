@@ -79,6 +79,13 @@
 			<classifier>jakarta</classifier>
 		</dependency>
 
+		<!-- Spring AMQP -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-amqp</artifactId>
+		</dependency>
+
+
 		<!-- MapStruct -->
 		<dependency>
 			<groupId>org.mapstruct</groupId>
@@ -114,6 +121,8 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+
 
 		<dependency>
 			<groupId>jakarta.persistence</groupId>
