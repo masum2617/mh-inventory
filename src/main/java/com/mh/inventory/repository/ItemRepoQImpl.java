@@ -5,18 +5,30 @@ import com.mh.inventory.common.commonresponse.ResponseUtils;
 import com.mh.inventory.config.jpaConfig.BaseRepo;
 import com.mh.inventory.dtos.ItemDto;
 import com.mh.inventory.dtos.QItemDto;
+import com.mh.inventory.entity.Item;
 import com.mh.inventory.entity.QCategory;
 import com.mh.inventory.entity.QItem;
 import com.mh.inventory.entity.QStock;
 import com.mh.inventory.service.ItemServiceQ;
 import com.mh.inventory.utils.DateUtils;
 import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.Order;
+import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
+
+import com.querydsl.core.types.dsl.ComparableExpressionBase;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
+
+import com.querydsl.core.types.Expression;
+import com.querydsl.core.types.Order;
+import com.querydsl.core.types.OrderSpecifier;
+import com.querydsl.core.types.dsl.Expressions;
+import com.querydsl.core.types.dsl.PathBuilder;
+
 
 import java.time.LocalDate;
 import java.util.List;
@@ -137,7 +149,7 @@ public class ItemRepoQImpl extends BaseRepo implements ItemServiceQ {
             Integer page,
             Integer perPage,
             String sortBy,
-            String direction,
+            String orderBy,
             String startDate,
             String endDate
     ) {
@@ -152,7 +164,7 @@ public class ItemRepoQImpl extends BaseRepo implements ItemServiceQ {
         };
 
         Sort sort = Sort.by(
-                "desc".equalsIgnoreCase(direction)
+                "desc".equalsIgnoreCase(orderBy)
                         ? Sort.Direction.DESC
                         : Sort.Direction.ASC,
                 safeSortBy
@@ -204,7 +216,7 @@ public class ItemRepoQImpl extends BaseRepo implements ItemServiceQ {
                 )
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
-                .orderBy(qItem.id.desc())
+                .orderBy(getOrderSpecifier(safeSortBy, orderBy))
                 .fetch();
 
         // =========================
@@ -253,23 +265,21 @@ public class ItemRepoQImpl extends BaseRepo implements ItemServiceQ {
         return where;
     }
 
-//    private OrderSpecifier<Item> getOrderSpecifier(
-//            String sortBy,
-//            String direction
-//    ) {
-//        PathBuilder<Item> itemPath =
-//                new PathBuilder<>(Item.class, "item");
-//
-//        Order order =
-//                "desc".equalsIgnoreCase(direction)
-//                        ? Order.DESC
-//                        : Order.ASC;
-//
-//        return new OrderSpecifier<>(
-//                order,
-//                itemPath.get(sortBy)
-//        );
-//    }
+    private OrderSpecifier<?> getOrderSpecifier(
+            String sortBy,
+            String orderBy
+    ) {
+        PathBuilder<Item> entityPath = new PathBuilder<>(Item.class, "item");
+
+        ComparableExpressionBase<?> sortExpression =
+                entityPath.getComparable(sortBy, Comparable.class);
+
+        Order direction = "desc".equalsIgnoreCase(orderBy)
+                ? Order.DESC
+                : Order.ASC;
+
+        return new OrderSpecifier<>(direction, sortExpression);
+    }
 
 
     private BooleanExpression likeKeyword(String keyword) {
