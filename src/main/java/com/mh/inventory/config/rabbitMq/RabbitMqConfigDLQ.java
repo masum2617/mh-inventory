@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 
 /*this class is when needed DLQ (retry) configured*/
 
-@Configuration
+//@Configuration
 public class RabbitMqConfigDLQ {
 
     /* ============================

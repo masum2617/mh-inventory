@@ -29,6 +29,9 @@ public class ItemDto {
 
     private Integer stockQty;
 
+    private Long slNo;
+
+
     @QueryProjection
     public ItemDto(Long id, String itemCode, String itemName, Integer qty, Integer reOrderLevel,
                    Long categoryId, String categoryName

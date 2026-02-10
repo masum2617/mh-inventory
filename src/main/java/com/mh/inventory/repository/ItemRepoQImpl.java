@@ -228,6 +228,13 @@ public class ItemRepoQImpl extends BaseRepo implements ItemServiceQ {
                 .where(where)
                 .fetchOne();
 
+//        to generate a serial no for each item
+        long start = pageable.getOffset();
+        for (int i = 0; i < content.size(); i++) {
+            content.get(i).setSlNo(start + i + 1);
+        }
+
+
         Page<ItemDto> pageResult =
                 new PageImpl<>(content, pageable, total != null ? total : 0);
 

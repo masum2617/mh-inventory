@@ -19,8 +19,8 @@ public class LowStockConsumer {
     /*
     * “Whenever a message appears in stock.low.queue, call this method.”
     * */
-//    @RabbitListener(queues = RabbitMqConfig.LOW_STOCK_QUEUE)
-    @RabbitListener(queues = RabbitMqConfigDLQ.LOW_STOCK_QUEUE)
+    @RabbitListener(queues = RabbitMqConfig.LOW_STOCK_QUEUE)
+//    @RabbitListener(queues = RabbitMqConfigDLQ.LOW_STOCK_QUEUE)
     public void onLowStock(StockLowEvent event) {
 
         System.out.println(
