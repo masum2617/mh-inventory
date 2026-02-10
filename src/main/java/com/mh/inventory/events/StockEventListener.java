@@ -1,6 +1,7 @@
 package com.mh.inventory.events;
 
 import com.mh.inventory.config.rabbitMq.RabbitMqConfig;
+import com.mh.inventory.config.rabbitMq.RabbitMqConfigDLQ;
 import com.mh.inventory.dtos.StockLowEvent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -18,9 +19,15 @@ public class StockEventListener {
     @Async("asyncExecutor")
     public void handleStockLow(StockLowEvent event) {
 
+//        rabbitTemplate.convertAndSend(
+//                RabbitMqConfig.STOCK_EXCHANGE,
+//                RabbitMqConfig.LOW_STOCK_ROUTING_KEY,
+//                event
+//        );
+
         rabbitTemplate.convertAndSend(
-                RabbitMqConfig.STOCK_EXCHANGE,
-                RabbitMqConfig.LOW_STOCK_ROUTING_KEY,
+                RabbitMqConfigDLQ.STOCK_EXCHANGE,
+                RabbitMqConfigDLQ.LOW_STOCK_ROUTING_KEY,
                 event
         );
     }
