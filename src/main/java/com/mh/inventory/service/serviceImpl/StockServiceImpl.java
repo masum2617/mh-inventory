@@ -51,7 +51,7 @@ public class StockServiceImpl implements StockService {
         if (newQty <= stock.getReOrderLevel()) {
 
             eventPublisher.publishEvent(
-                    new StockLowEvent(itemNo, newQty)
+                    new StockLowEvent(itemNo, newQty, null, stock.getItemName())
             );
         }
 

@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 
 @Entity
@@ -58,4 +59,16 @@ public class Stock extends BaseEntity {
 
     @Column(name = "remarks")
     private String remarks;
+
+    @Column(name = "approve_flag")
+    private Integer approveFlag;
+
+    @Column(name = "approve_by")
+    private Integer approveBy;
+
+    @Column(name = "draft_flag")
+    private Integer draftFlag;
+
+    @Column(name = "approve_date")
+    private Date approveDate;
 }

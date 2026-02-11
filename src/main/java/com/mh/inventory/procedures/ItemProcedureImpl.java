@@ -68,7 +68,7 @@ public class ItemProcedureImpl {
     }
 
     public Response searchItemWithProcedure(String searchText) {
-        /*oracle supports refcursor but NOT RECOMMENDED
+        /*postgres supports refcursor but NOT RECOMMENDED
          * this example is with ref cursor*/
         StoredProcedureQuery query =
                 entityManager.createStoredProcedureQuery(
