@@ -8,5 +8,8 @@ import lombok.Setter;
 public class StockRequestDto {
     private Long itemId;
     private Integer sellQty;
+    private Long warehouseId;
+    private Long supplierId;
+    pri
 
 }

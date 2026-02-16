@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Table(name = "notifications", schema = "mh_inventory")
@@ -42,11 +43,19 @@ public class Notification {
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
+
     @Column(name = "read_at")
     private LocalDateTime readAt;
 
     @PrePersist
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.updatedAt = LocalDateTime.now();
     }
 }

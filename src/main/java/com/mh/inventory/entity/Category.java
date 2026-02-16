@@ -36,6 +36,7 @@ public class Category extends BaseEntity {
     private List<Category> subCategories;
 
     @OneToMany(mappedBy = "category")
+    //mappedBy tells Hibernate: “I’m not the owner”
     private List<Item> items = new ArrayList<>();
 
 }

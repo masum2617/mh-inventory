@@ -45,9 +45,13 @@ public class NotificationServiceImpl implements NotificationService {
 
         Notification notification = notificationRepo.findById(notificationDto.getId()).orElse(null);
 
-        if(!notification.isRead()) {
+        if(!notification.isRead() && notificationDto.getIsRead()) {
             notification.setRead(true);
             notification.setReadAt(LocalDateTime.now());
+            notification.setUpdatedAt(LocalDateTime.now());
+        } else if (notification.isRead() && !notificationDto.getIsRead()) {
+            notification.setRead(false);
+            notification.setUpdatedAt(LocalDateTime.now());
         }
         return ResponseUtils.createSuccessResponse("Successfully Updated Read Status");
 

@@ -45,6 +45,7 @@ public class Item extends BaseEntity {
     @Column(name = "item_name", nullable = false, length = 150)
     private String itemName;
 
+    //owning side of category
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(
             name = "category_id",
@@ -61,5 +62,7 @@ public class Item extends BaseEntity {
     @OneToMany(mappedBy = "item", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Stock> stockList = new ArrayList<>();
 
-
+    //mappedBy tells Hibernate: “I’m not the owner”
+    @OneToMany(mappedBy = "item", fetch = FetchType.LAZY)
+    private List<InventoryBalance> inventoryBalances;
 }

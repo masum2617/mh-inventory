@@ -107,7 +107,8 @@ public class ItemServiceImpl implements ItemService {
                 status
         );
 
-        List<Item> itemList = itemRepo.findAll(filteredSpecification);
+//        List<Item> itemList = itemRepo.findAll(filteredSpecification);
+
         List<ItemDto> list = itemRepo.findAll(filteredSpecification)
                 .stream()
                 .map(item -> new ItemDto(

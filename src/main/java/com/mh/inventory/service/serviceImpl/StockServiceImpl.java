@@ -23,6 +23,11 @@ public class StockServiceImpl implements StockService {
     private final ApplicationEventPublisher eventPublisher;
     private final StockMapper stockMapper;
 
+    @Override
+    public StockResponseDto saveStock(StockRequestDto stockRequestDto) {
+        return null;
+    }
+
     @Transactional
     @Override
     public Response reduceStock(StockRequestDto stockRequestDto) {
@@ -35,7 +40,7 @@ public class StockServiceImpl implements StockService {
 
 
         Response res = Response.builder()
-                .status(ResponseStatus.success("succe"))
+                .status(ResponseStatus.success("Stock Updated Successfully"))
                 .data(stock)
                 .build();
 
@@ -49,7 +54,6 @@ public class StockServiceImpl implements StockService {
 
         // threshold crossing check
         if (newQty <= stock.getReOrderLevel()) {
-
             eventPublisher.publishEvent(
                     new StockLowEvent(itemNo, newQty, null, stock.getItemName())
             );
