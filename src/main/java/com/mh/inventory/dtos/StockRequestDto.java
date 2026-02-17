@@ -10,6 +10,10 @@ public class StockRequestDto {
     private Integer sellQty;
     private Long warehouseId;
     private Long supplierId;
-    pri
+    private Integer qtyChange;
+    private Integer transactionType;
+    private Double purchasePrice;
+    private String batchNumber;
+    private Double salesPrice;
 
 }
