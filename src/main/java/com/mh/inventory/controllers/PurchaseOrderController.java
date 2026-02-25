@@ -23,4 +23,10 @@ public class PurchaseOrderController {
 
         return purchaseOrderService.createPurchaseOrder(requestDto);
     }
+
+    @PostMapping("/update")
+    public Response updatePurchaseOrder(@RequestBody PurchaseOrderRequestDto requestDto) {
+
+        return purchaseOrderService.updatePurchaseOrder(requestDto);
+    }
 }

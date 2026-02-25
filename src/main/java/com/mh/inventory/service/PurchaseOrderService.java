@@ -7,11 +7,11 @@ import com.mh.inventory.entity.PurchaseOrder;
 public interface PurchaseOrderService {
 
     Response createPurchaseOrder(PurchaseOrderRequestDto request);
-//
+    Response updatePurchaseOrder(PurchaseOrderRequestDto request);
 //    PurchaseOrder submitForApproval(Long id);
-//
+
 //    PurchaseOrder approvePurchaseOrder(Long id, Long approverId);
-//
+
 //    PurchaseOrder receivePurchaseOrder(Long id, Long warehouseId);
 
 }

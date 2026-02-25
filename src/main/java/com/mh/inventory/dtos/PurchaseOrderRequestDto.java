@@ -14,8 +14,10 @@ import java.util.List;
 public class PurchaseOrderRequestDto {
 
     private String poCode;
-
+    private Long id; //po id
     private Long supplierId;
+    private Date receiveDate;
+    private Long receiveFlag;
 
 //    @NotNull(message = "Expected delivery date is required")
     private Date expectedDeliveryDate;
