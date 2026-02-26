@@ -25,10 +25,11 @@ public class PurchaseOrderItemDto {
 //    private BigDecimal discAmt;
     private Double discAmt;
     private Double totalAmt;
-
     private Integer bonusQty;
-
     private String weight;
+    private Integer qtyReceive;
+    private String batchNumber;
+    private Long supplierId;
 
     private BigDecimal weightCost;
 }

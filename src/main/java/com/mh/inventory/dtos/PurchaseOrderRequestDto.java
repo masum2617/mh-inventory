@@ -29,6 +29,7 @@ public class PurchaseOrderRequestDto {
 
     private String orderStatus;
     private Double totalAmount;
+    private Long warehouseId;
 
 //    @NotEmpty(message = "At least one item is required")
     private List<PurchaseOrderItemDto> items;

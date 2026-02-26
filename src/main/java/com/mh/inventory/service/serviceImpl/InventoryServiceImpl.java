@@ -53,10 +53,11 @@ public class InventoryServiceImpl implements InventoryService {
         Warehouse warehouse = entityManager.getReference(Warehouse.class, stockRequestDto.getWarehouseId());
         Supplier supplier = entityManager.getReference(Supplier.class, stockRequestDto.getSupplierId());
 
-
         inventoryTransaction.setWarehouse(warehouse);
         inventoryTransaction.setSupplier(supplier);
         inventoryTransaction.setItem(item);
+
+        inventoryTransaction.setTransactionType(stockRequestDto.getTransactionType() != null ? stockRequestDto.getTransactionType() : null);
 
 
         InventoryTransaction savedTransaction = inventoryTransactionRepo.save(inventoryTransaction);
@@ -145,6 +146,9 @@ public class InventoryServiceImpl implements InventoryService {
         return ResponseUtils.createSuccessResponse("Inventory Balance updated successfully");
 
     }
+
+
+
 
 
 //    @Transactional

@@ -48,7 +48,7 @@ public class PurchaseOrderItems extends BaseEntity {
     private Integer qtyReceive;
 
     @Column(name = "bonus_qty")
-    private Integer bonusQty;
+    private Integer bonusQty = 0;
 
     @Column(name = "unit_price")
 //    private BigDecimal unitPrice;
@@ -59,6 +59,9 @@ public class PurchaseOrderItems extends BaseEntity {
 
     @Column(name = "weight_cost")
     private Double weightCost;
+
+    @Column(name = "batch_number")
+    private String batchNumber;
 
 
 
