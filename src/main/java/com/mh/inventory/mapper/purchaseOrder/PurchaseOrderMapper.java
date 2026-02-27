@@ -1,6 +1,6 @@
 package com.mh.inventory.mapper.purchaseOrder;
 
-import com.mh.inventory.dtos.PurchaseOrderRequestDto;
+import com.mh.inventory.dtos.PurOrderRequestDto;
 import com.mh.inventory.entity.PurchaseOrder;
 import org.mapstruct.*;
 
@@ -8,10 +8,10 @@ import org.mapstruct.*;
 public interface PurchaseOrderMapper {
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    @Mapping(target = "items", ignore = true)
+    @Mapping(target = "purchaseOrderItems", ignore = true)
     @Mapping(target = "poCode", ignore = true)
     void updateEntityFromDto(
-            PurchaseOrderRequestDto dto,
+            PurOrderRequestDto dto,
             @MappingTarget PurchaseOrder entity
     );
 }

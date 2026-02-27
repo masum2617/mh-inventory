@@ -71,5 +71,5 @@ public class PurchaseOrder extends BaseEntity {
     @OneToMany(mappedBy = "purchaseOrder",
             cascade = CascadeType.ALL,
             orphanRemoval = true)
-    private List<PurchaseOrderItems> items = new ArrayList<>();
+    private List<PurchaseOrderItems> purchaseOrderItems = new ArrayList<>();
 }

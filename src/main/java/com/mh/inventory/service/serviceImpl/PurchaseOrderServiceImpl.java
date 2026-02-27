@@ -1,10 +1,10 @@
 package com.mh.inventory.service.serviceImpl;
 
 import com.mh.inventory.common.commonresponse.Response;
-import com.mh.inventory.common.commonresponse.ResponseStatus;
 import com.mh.inventory.common.commonresponse.ResponseUtils;
+import com.mh.inventory.dtos.PurOrderRequestDto;
+import com.mh.inventory.dtos.PurOrderResponseDto;
 import com.mh.inventory.dtos.PurchaseOrderItemDto;
-import com.mh.inventory.dtos.PurchaseOrderRequestDto;
 import com.mh.inventory.dtos.StockRequestDto;
 import com.mh.inventory.entity.Item;
 import com.mh.inventory.entity.PurchaseOrder;
@@ -21,7 +21,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -40,7 +39,7 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
 
 
     @Override
-    public Response createPurchaseOrder(PurchaseOrderRequestDto request) {
+    public Response createPurchaseOrder(PurOrderRequestDto request) {
 
         PurchaseOrder po = new PurchaseOrder();
 
@@ -82,7 +81,7 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
 //
 //            totalAmount += itemTotal;
 
-            po.getItems().add(poItem);
+            po.getPurchaseOrderItems().add(poItem);
         }
 
 //        po.setTotalAmount(totalAmount);
@@ -96,7 +95,7 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
 
 
     @Override
-    public Response updatePurchaseOrder(PurchaseOrderRequestDto request) {
+    public Response updatePurchaseOrder(PurOrderRequestDto request) {
         if (request.getId() == null) {
             return ResponseUtils.createFailedResponse("id is required");
         }
@@ -116,7 +115,7 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
 
         //Map existing items by itemId
         Map<Long, PurchaseOrderItems> existingMap =
-                po.getItems().stream()
+                po.getPurchaseOrderItems().stream()
                                 .collect(Collectors.toMap(
                                         item -> item.getItem().getId(),
                                         Function.identity()
@@ -151,7 +150,7 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
                 poItem.setDiscAmt(itemDto.getDiscAmt());
                 poItem.setTotalAmount(itemDto.getTotalAmt());
 
-                po.getItems().add(poItem);
+                po.getPurchaseOrderItems().add(poItem);
             }
 
         }
@@ -160,7 +159,7 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
            return ResponseUtils.createFailedResponse("No items in purchase order");
         }
 
-        po.getItems().removeIf(
+        po.getPurchaseOrderItems().removeIf(
                 poi -> !incomingItemIds.contains(poi.getItem().getId())
         );
 
@@ -184,6 +183,20 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
         }
 
         return ResponseUtils.createSuccessResponse("Updated Successfully");
+    }
+
+    @Override
+    public Response getPurchaseOrderWithItems(Long purchaseOrderId) {
+        if (purchaseOrderId == null) {
+            return ResponseUtils.createFailedResponse("id is required");
+        }
+
+        List<PurOrderResponseDto> poList = purchaseOrderRepo.findPurchaseOrderWithItems(purchaseOrderId);
+        if(poList.size() == 0) {
+            return ResponseUtils.createFailedResponse("Purchase Order Not Found");
+        }
+
+        return ResponseUtils.createSuccessResponse("Data Found", poList);
     }
 
 
