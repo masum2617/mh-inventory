@@ -1,6 +1,7 @@
 package com.mh.inventory.dtos;
 
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -32,4 +33,5 @@ public class PurOrderRequestDto {
 
 //    @NotEmpty(message = "At least one item is required")
     private List<PurchaseOrderItemDto> items;
+
 }

@@ -1,7 +1,5 @@
 package com.mh.inventory.dtos;
 
-import lombok.Getter;
-import lombok.Setter;
 
 public interface PurOrderResponseDto {
     Long getPurOrderId();

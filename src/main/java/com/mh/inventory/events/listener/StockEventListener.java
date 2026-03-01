@@ -1,6 +1,5 @@
-package com.mh.inventory.events;
+package com.mh.inventory.events.listener;
 
-import com.mh.inventory.config.rabbitMq.RabbitMqConfig;
 import com.mh.inventory.config.rabbitMq.RabbitMqConfigDLQ;
 import com.mh.inventory.dtos.StockLowEvent;
 import lombok.RequiredArgsConstructor;

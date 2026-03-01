@@ -11,6 +11,7 @@ import com.mh.inventory.entity.PurchaseOrder;
 import com.mh.inventory.entity.PurchaseOrderItems;
 import com.mh.inventory.enums.PurchaseOrderStatus;
 import com.mh.inventory.enums.TransactionType;
+import com.mh.inventory.events.PurchaseOrderReceivedEvent;
 import com.mh.inventory.mapper.purchaseOrder.PurchaseOrderMapper;
 import com.mh.inventory.repository.ItemRepo;
 import com.mh.inventory.repository.PurchaseOrderRepo;
@@ -18,6 +19,7 @@ import com.mh.inventory.service.InventoryService;
 import com.mh.inventory.service.PurchaseOrderService;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,6 +37,7 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
     private final ItemRepo itemRepo;
     private final PurchaseOrderMapper purchaseOrderMapper;
     private final InventoryService inventoryService;
+    private final ApplicationEventPublisher applicationEventPublisher;
 //    private final Supplier
 
 
@@ -166,9 +169,17 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
         /*update stock when product is received*/
         if (request.getReceiveFlag() != null && request.getReceiveFlag() == 1) {
 
-            for (PurchaseOrderItemDto item : request.getItems()) {
+            PurchaseOrderReceivedEvent purOrdReqEventDto = new PurchaseOrderReceivedEvent();
+            purOrdReqEventDto.setWarehouseId(request.getWarehouseId());
+            purOrdReqEventDto.setItems(request.getItems());
+
+            applicationEventPublisher.publishEvent(purOrdReqEventDto);
+
+            /*un comment this if don't want to publish event way*/
+            /*for (PurchaseOrderItemDto item : request.getItems()) {
 
                 StockRequestDto stockDto = new StockRequestDto();
+
                 stockDto.setItemId(item.getItemId());
                 stockDto.setQtyChange(item.getQtyReceive()+ item.getBonusQty());
                 stockDto.setWarehouseId(request.getWarehouseId());
@@ -179,7 +190,7 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
                 stockDto.setTransactionType(TransactionType.PURCHASE.getId());
 
                 inventoryService.addInventory(stockDto);
-            }
+            }*/
         }
 
         return ResponseUtils.createSuccessResponse("Updated Successfully");
