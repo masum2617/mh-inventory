@@ -8,5 +8,5 @@ public interface InventoryService {
 
     Response addInventory(StockRequestDto stockRequestDto);
 
-    Response sellInventoryItems(StockRequestDto stockRequestDto);
+    Response processInventoryAdjustment(StockRequestDto stockRequestDto);
 }

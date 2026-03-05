@@ -96,7 +96,7 @@ public class InventoryServiceImpl implements InventoryService {
 
     @Override
     @Transactional
-    public Response sellInventoryItems(StockRequestDto stockRequestDto) {
+    public Response processInventoryAdjustment(StockRequestDto stockRequestDto) {
         Long itemNo = stockRequestDto.getItemId();
         if(stockRequestDto.getItemId() == null){
             return ResponseUtils.createFailedResponse("Item Id is required");

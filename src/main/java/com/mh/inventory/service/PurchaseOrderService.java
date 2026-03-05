@@ -8,6 +8,7 @@ public interface PurchaseOrderService {
     Response createPurchaseOrder(PurOrderRequestDto request);
     Response updatePurchaseOrder(PurOrderRequestDto request);
     Response getPurchaseOrderWithItems(Long purchaseOrderId);
+    Response processPurchaseReceive(PurOrderRequestDto request);
 //    PurchaseOrder submitForApproval(Long id);
 
 //    PurchaseOrder approvePurchaseOrder(Long id, Long approverId);

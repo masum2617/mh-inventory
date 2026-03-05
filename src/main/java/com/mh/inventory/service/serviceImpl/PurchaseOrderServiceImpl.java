@@ -9,6 +9,7 @@ import com.mh.inventory.dtos.StockRequestDto;
 import com.mh.inventory.entity.Item;
 import com.mh.inventory.entity.PurchaseOrder;
 import com.mh.inventory.entity.PurchaseOrderItems;
+import com.mh.inventory.entity.PurchaseReturn;
 import com.mh.inventory.enums.PurchaseOrderStatus;
 import com.mh.inventory.enums.TransactionType;
 import com.mh.inventory.events.PurchaseOrderReceivedEvent;
@@ -166,6 +167,13 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
                 poi -> !incomingItemIds.contains(poi.getItem().getId())
         );
 
+
+
+        return ResponseUtils.createSuccessResponse("Updated Successfully");
+    }
+
+    @Override
+    public Response processPurchaseReceive(PurOrderRequestDto request){
         /*update stock when product is received*/
         if (request.getReceiveFlag() != null && request.getReceiveFlag() == 1) {
 
@@ -191,9 +199,10 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
 
                 inventoryService.addInventory(stockDto);
             }*/
+        } else {
+            return ResponseUtils.createFailedResponse("Purchase order Not Received");
         }
-
-        return ResponseUtils.createSuccessResponse("Updated Successfully");
+        return ResponseUtils.createSuccessResponse("Receieved Successfully");
     }
 
     @Override

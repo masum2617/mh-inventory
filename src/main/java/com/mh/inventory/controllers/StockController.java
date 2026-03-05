@@ -21,7 +21,7 @@ public class StockController {
 
     @PostMapping("/sell-items")
     public Response sellInventoryItems(@RequestBody StockRequestDto stockRequestDto) {
-        return inventoryService.sellInventoryItems(stockRequestDto);
+        return inventoryService.processInventoryAdjustment(stockRequestDto);
 
     }
 

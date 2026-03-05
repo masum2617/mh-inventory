@@ -32,4 +32,7 @@ public class PurchaseOrderItemDto {
     private Long supplierId;
 
     private BigDecimal weightCost;
+
+    /*return*/
+    private Integer returnFlag;
 }
