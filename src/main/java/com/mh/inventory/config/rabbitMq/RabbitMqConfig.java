@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
  Needed when no dlq configured
 * “This class defines RabbitMQ infrastructure (queues, exchanges, bindings).”
 * */
-@Configuration
+//@Configuration
 public class RabbitMqConfig {
     public static final String STOCK_EXCHANGE = "stock.exchange";
     public static final String LOW_STOCK_QUEUE = "stock.low.queue";

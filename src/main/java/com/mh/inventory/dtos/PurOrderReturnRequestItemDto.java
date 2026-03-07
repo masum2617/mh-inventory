@@ -22,5 +22,6 @@ public class PurOrderReturnRequestItemDto {
 
     /*return*/
     private Integer returnFlag;
+    private Long id;
 
 }

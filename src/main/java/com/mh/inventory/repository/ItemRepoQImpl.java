@@ -51,11 +51,11 @@ public class ItemRepoQImpl extends BaseRepo implements ItemServiceQ {
     public Response getItemById(Long id) {
         /*
         * Constructor projection (recommended)
-        ✅ Compile-time safety
-        ✅ Order matters → less silent bugs
-        ✅ Immutable DTOs possible
-        ✅ Refactor-safe
-        ✅ Cleaner mapping
+        Compile-time safety
+        Order matters → less silent bugs
+        Immutable DTOs possible
+        Refactor-safe
+        Cleaner mapping
         * */
         ItemDto itemDto = query
                 .select(Projections.constructor(ItemDto.class,
