@@ -1,0 +1,39 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: "inventory-service"
+
+  main:
+    allow-bean-definition-overriding: true
+
+  datasource:
+    url:  jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: root@123
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 10
+
+  jpa:
+    hibernate:
+    #      ddl-auto: update  # (or create-drop for fresh dev)
+    show-sql: true
+    properties:
+      hibernate:
+        default_schema: mh_inventory
+        format_sql: true
+
+
+#  rabbitmq:
+#    host: localhost
+#    port: 5672
+#    username: guest
+#    password: guest
+
+
+springdoc:
+  api-docs:
+    querydsl:
+      enabled: false
