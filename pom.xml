@@ -26,6 +26,7 @@
 	<!-- ===================== -->
 	<properties>
 		<java.version>21</java.version>
+		<spring-cloud.version>2025.0.1</spring-cloud.version>
 		<querydsl.version>5.0.0</querydsl.version>
 		<mapstruct.version>1.6.3</mapstruct.version>
 		<lombok.version>1.18.30</lombok.version>
@@ -109,6 +110,18 @@
 			<classifier>jakarta</classifier>
 		</dependency>
 
+		<dependency>
+			<groupId>com.querydsl</groupId>
+			<artifactId>querydsl-core</artifactId>
+			<version>${querydsl.version}</version>
+		</dependency>
+
+<!--		cloud config client-->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-config</artifactId>
+		</dependency>
+
 		<!-- Spring AMQP -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -161,6 +174,19 @@
 		</dependency>
 
 	</dependencies>
+
+	<!--config client-->
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
 	<!-- ===================== -->
 	<!-- BUILD -->

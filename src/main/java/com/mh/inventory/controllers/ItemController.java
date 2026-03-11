@@ -6,6 +6,9 @@ import com.mh.inventory.repository.itemRepository.ItemRepoCriteria;
 import com.mh.inventory.service.ItemService;
 import com.mh.inventory.service.ItemServiceQ;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,6 +25,15 @@ public class ItemController {
 
     @Autowired
     ItemRepoCriteria itemRepoCriteria;
+
+    @Value("${build.version}")
+    private String buildVersion;
+
+    @Value("${inventory.message}")
+    private String message;
+
+
+
 
 
     @PostMapping("/save")
@@ -89,5 +101,12 @@ public class ItemController {
 
     }
 
+
+    @GetMapping("/build-info-message")
+    public ResponseEntity<String> getBuildInfo() {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(message.concat(buildVersion));
+    }
 
 }
