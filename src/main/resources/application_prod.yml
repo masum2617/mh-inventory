@@ -1,6 +1,5 @@
 server:
   port: 8081
-  host: localhost
 
 spring:
   application:
@@ -10,8 +9,6 @@ spring:
 
   main:
     allow-bean-definition-overriding: true
-
-
 
 # uncomment the following db credentials if no config server is used
 #  datasource:
@@ -32,7 +29,7 @@ spring:
 #        format_sql: true
 
   config:
-    import: "optional:configserver:http://localhost:8071/"
+    import: "optional:configserver:http://localhost:8071/ "
 
 #  rabbitmq:
 #    host: localhost
@@ -40,45 +37,8 @@ spring:
 #    username: guest
 #    password: guest
 
-endpoints:
-  shutdown:
-    enabled: true
-
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
-  endpoint:
-    shutdown:
-      access: unrestricted
-    health:
-      probes:
-        enabled: true
-  info:
-    env:
-      enabled: true
-  health:
-    readiness-state:
-      enabled: true
-    liveness-state:
-      enabled: true
-
-
-eureka:
-  instance:
-    prefer-ip-address: true
-  client:
-    fetch-registry: true
-    register-with-eureka: true
-    service-url:
-      defaultZone: http://localhost:8070/eureka/
 
 springdoc:
   api-docs:
     querydsl:
       enabled: false
-
-external:
-  shared-url: ${server.host}:8082/
