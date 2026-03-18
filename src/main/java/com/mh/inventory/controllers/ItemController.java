@@ -5,6 +5,8 @@ import com.mh.inventory.dtos.ItemDto;
 import com.mh.inventory.repository.itemRepository.ItemRepoCriteria;
 import com.mh.inventory.service.ItemService;
 import com.mh.inventory.service.ItemServiceQ;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -13,9 +15,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
 @RestController
 @RequestMapping("/api/item")
 public class ItemController {
+
+    private static final Logger logger = LoggerFactory.getLogger(ItemController.class);
 
     @Autowired
     ItemService itemService;
@@ -35,7 +40,6 @@ public class ItemController {
 
 
 
-
     @PostMapping("/save")
     public Response saveItem(@RequestBody ItemDto itemDto) {
 //        return itemService.saveItem(itemDto);
@@ -43,8 +47,17 @@ public class ItemController {
         return itemService.saveItemAndStockWithProcedure(itemDto);
     }
 
+//    @GetMapping("/list")
+//    public Response listItems() {
+//        return itemService.getAllItems();
+//    }
+
+    /*custom request header pass through */
     @GetMapping("/list")
-    public Response listItems() {
+    public Response listItems(@RequestHeader("mh-inv-correlation-id")String correlationId) {
+
+        logger.debug("mh inv correlation-id={}", correlationId);
+
         return itemService.getAllItems();
     }
 

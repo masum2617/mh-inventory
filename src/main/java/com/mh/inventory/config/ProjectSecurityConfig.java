@@ -22,6 +22,7 @@ public class ProjectSecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                /*temporary commented*/
 //                .authorizeHttpRequests(auth -> auth
 //                        .anyRequest().authenticated()
 //                )
